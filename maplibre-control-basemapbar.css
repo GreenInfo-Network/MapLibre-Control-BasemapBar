@@ -1,0 +1,57 @@
+.maplibre-control-basemapbar {
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+}
+
+.maplibre-control-basemapbar button.maplibre-control-basemapbar-option {
+    width: fit-content;
+    white-space: nowrap;
+
+    height: 27px;
+
+    padding: 0 10px;
+
+    color: black;
+    background: white;
+    border: 0 none transparent;
+    border-radius: 0;
+}
+.maplibre-control-basemapbar button:not(:first-child) {
+    border-left: 1px solid black;
+}
+.maplibre-control-basemapbar button.maplibre-control-basemapbar-option.maplibre-control-basemapbar-active {
+    background: black;
+    color: white;
+}
+.maplibre-control-basemapbar button:first-child {
+    margin-left: 2px;
+}
+.maplibre-control-basemapbar button:last-child {
+    margin-right: 2px;
+}
+
+.maplibre-control-basemapbar .maplibre-control-basemapbar-expandbutton {
+    display: inline-block;
+    width: fit-content;
+    white-space: nowrap;
+    border: 0 none transparent !important;
+    padding: 0 10px;
+}
+.maplibre-control-basemapbar .maplibre-control-basemapbar-collapsebutton {
+    border: 0 none transparent;
+    font-size: 2em;
+}
+
+.maplibre-control-basemapbar.maplibre-control-basemapbar-collapsed {
+}
+.maplibre-control-basemapbar.maplibre-control-basemapbar-collapsed button.maplibre-control-basemapbar-option {
+    display: none;
+}
+.maplibre-control-basemapbar.maplibre-control-basemapbar-collapsed .maplibre-control-basemapbar-collapsebutton {
+    display: none;
+}
+.maplibre-control-basemapbar:not(.maplibre-control-basemapbar-collapsed) .maplibre-control-basemapbar-expandbutton {
+    display: none;
+}

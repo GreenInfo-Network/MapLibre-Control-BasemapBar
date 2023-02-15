@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Demo: Maplibre-Control-BasemapBar</title>
+
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+
+    <style>
+    html, body {
+        margin: 0;
+    }
+    #map {
+        width: 100vw;
+        height: 100vh;
+        background-color: silver;
+    }
+    </style>
+
+    <script src="maplibre-control-basemapbar.js"></script>
+    <link rel="stylesheet" href="maplibre-control-basemapbar.css" />
+
+    <script>
+    let MAP;
+    window.addEventListener('DOMContentLoaded', () => {
+        MAP = new maplibregl.Map({
+            container: 'map',
+            style: './sample-basemaps.json',
+            center: [0, 0],
+            zoom: 1,
+        });
+
+        MAP.addControl(new maplibregl.NavigationControl());
+
+        const basemapbar = new MapLibreControlBasemapBar({
+            basemaps: [
+                { id: 'basemap-positron', title: "Light", tooltip: "Stamen's Light basemap also known as Positron" },
+                { id: 'basemap-openstreetmap', title: "OSM", tooltip: "Map tiles from OpenStreetMap" },
+                { id: 'basemap-terrain', title: "Terrain", tooltip: "Colored terrain map by Stamen" },
+            ],
+        });
+        MAP.addControl(basemapbar, 'top-right');
+
+        MAP.on('load', () => {
+            basemapbar.selectBasemap('basemap-terrain');
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
