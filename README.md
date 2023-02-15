@@ -2,6 +2,10 @@
 
 A MapLibre control to select which basemap layer is visible.
 
+Demo = https://greeninfo-network.github.io/MapLibre-Control-BasemapBar/
+
+Github = https://github.com/GreenInfo-Network/MapLibre-Control-BasemapBar/
+
 
 ## Usage
 
