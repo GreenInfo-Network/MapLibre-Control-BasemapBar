@@ -37,6 +37,7 @@ class MapLibreControlBasemapBar {
 
         // an expand button and collapse button
         this.expandbutton = document.createElement('button');
+        this.expandbutton.type = 'button';
         this.expandbutton.className = 'maplibre-control-basemapbar-expandbutton';
         this.expandbutton.title = this.options.tooltipExpandButton;
         this.expandbutton.innerHTML = this.options.expandButtonText;
@@ -45,6 +46,7 @@ class MapLibreControlBasemapBar {
         container.appendChild(this.expandbutton);
 
         this.collapsebutton = document.createElement('button');
+        this.collapsebutton.type = 'button';
         this.collapsebutton.className = 'maplibre-control-basemapbar-collapsebutton';
         this.collapsebutton.title = this.options.tooltopCollapseButton;
         this.collapsebutton.innerHTML = "&times;";
