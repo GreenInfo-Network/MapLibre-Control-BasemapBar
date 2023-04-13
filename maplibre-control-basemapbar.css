@@ -6,6 +6,7 @@
 }
 
 .maplibre-control-basemapbar button.maplibre-control-basemapbar-option {
+    display: inline-block;
     width: fit-content;
     white-space: nowrap;
 
@@ -21,7 +22,7 @@
 .maplibre-control-basemapbar button:not(:first-child) {
     border-left: 1px solid black;
 }
-.maplibre-control-basemapbar button.maplibre-control-basemapbar-option.maplibre-control-basemapbar-active {
+.maplibre-control-basemapbar button.maplibre-control-basemapbar-option[aria-pressed="true"] {
     background: black;
     color: white;
 }

@@ -17,6 +17,10 @@ class MapLibreControlBasemapBar {
         container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group maplibre-control-basemapbar maplibre-control-basemapbar-collapsed';
 
         // a button for each option
+        const buttonset = document.createElement('span');
+        buttonset.id = `maplibre-control-basemapbar-${Math.round(1000000 * Math.random())}`;
+        container.appendChild(buttonset);
+
         this.options.basemaps.forEach((basemap) => {
             const button = document.createElement('button');
             button.className = 'maplibre-control-basemapbar-option';
@@ -28,30 +32,34 @@ class MapLibreControlBasemapBar {
                 this.selectBasemap(basemap.id);
             });
 
-            container.appendChild(button);
+            buttonset.appendChild(button);
         });
 
         // an expand button and collapse button
-        const exbutton = document.createElement('button');
-        exbutton.className = 'maplibre-control-basemapbar-expandbutton';
-        exbutton.title = this.options.tooltipExpandButton;
-        exbutton.innerHTML = this.options.expandButtonText;
-        container.appendChild(exbutton);
+        this.expandbutton = document.createElement('button');
+        this.expandbutton.className = 'maplibre-control-basemapbar-expandbutton';
+        this.expandbutton.title = this.options.tooltipExpandButton;
+        this.expandbutton.innerHTML = this.options.expandButtonText;
+        this.expandbutton.setAttribute('aria-controls', buttonset.id);
+        this.expandbutton.setAttribute('aria-expanded', 'true');
+        container.appendChild(this.expandbutton);
 
-        const colbutton = document.createElement('button');
-        colbutton.className = 'maplibre-control-basemapbar-collapsebutton';
-        colbutton.title = this.options.tooltopCollapseButton;
-        colbutton.innerHTML = "&times;";
-        container.appendChild(colbutton);
+        this.collapsebutton = document.createElement('button');
+        this.collapsebutton.className = 'maplibre-control-basemapbar-collapsebutton';
+        this.collapsebutton.title = this.options.tooltopCollapseButton;
+        this.collapsebutton.innerHTML = "&times;";
+        this.collapsebutton.setAttribute('aria-controls', buttonset.id);
+        this.collapsebutton.setAttribute('aria-expanded', 'true');
+        container.appendChild(this.collapsebutton);
 
-        colbutton.addEventListener('click', () => {
+        this.collapsebutton.addEventListener('click', () => {
             this.collapseBar();
-            exbutton.focus();
+            this.expandbutton.focus();
         });
 
-        exbutton.addEventListener('click', () => {
+        this.expandbutton.addEventListener('click', () => {
             this.expandBar();
-            colbutton.focus();
+            this.collapsebutton.focus();
         });
 
         // done!
@@ -66,11 +74,17 @@ class MapLibreControlBasemapBar {
     expandBar() {
         if (this.isExpanded()) return;
         this._container.classList.remove('maplibre-control-basemapbar-collapsed');
+
+        this.expandbutton.setAttribute('aria-expanded', 'true');
+        this.collapsebutton.setAttribute('aria-expanded', 'true');
     }
 
     collapseBar() {
         if (! this.isExpanded()) return;
         this._container.classList.add('maplibre-control-basemapbar-collapsed');
+
+        this.expandbutton.setAttribute('aria-expanded', 'false');
+        this.collapsebutton.setAttribute('aria-expanded', 'false');
     }
 
     isExpanded() {
@@ -85,16 +99,16 @@ class MapLibreControlBasemapBar {
 
             if (istheone) {
                 this._map.setLayoutProperty(layerid, 'visibility', 'visible');
-                button.classList.add('maplibre-control-basemapbar-active');
+                button.setAttribute('aria-pressed', 'true');
             } else {
                 this._map.setLayoutProperty(layerid, 'visibility', 'none');
-                button.classList.remove('maplibre-control-basemapbar-active');
+                button.setAttribute('aria-pressed', 'false');
             }
         });
     }
 
     selectedOption() {
-        const button = this._container.querySelector('button.maplibre-control-basemapbar-option.maplibre-control-basemapbar-active');
+        const button = this._container.querySelector('button.maplibre-control-basemapbar-option[aria-pressed="true"]');
         const layerid = button.getAttribute('data-layer-id');
         return layerid;
     }
