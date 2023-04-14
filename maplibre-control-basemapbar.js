@@ -24,7 +24,6 @@ class MapLibreControlBasemapBar {
         this.options.basemaps.forEach((basemap) => {
             const button = document.createElement('button');
             button.className = 'maplibre-control-basemapbar-option';
-            button.title = basemap.tooltip;
             button.setAttribute('data-layer-id', basemap.id);
             button.innerHTML = basemap.title;
 
