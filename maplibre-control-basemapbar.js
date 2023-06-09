@@ -41,16 +41,22 @@ class MapLibreControlBasemapBar {
         this.expandbutton.title = this.options.tooltipExpandButton;
         this.expandbutton.innerHTML = this.options.expandButtonText;
         this.expandbutton.setAttribute('aria-controls', buttonset.id);
-        this.expandbutton.setAttribute('aria-expanded', 'true');
         container.appendChild(this.expandbutton);
 
         this.collapsebutton = document.createElement('button');
         this.collapsebutton.type = 'button';
         this.collapsebutton.className = 'maplibre-control-basemapbar-collapsebutton';
         this.collapsebutton.title = this.options.tooltopCollapseButton;
-        this.collapsebutton.innerHTML = "&times;";
         this.collapsebutton.setAttribute('aria-controls', buttonset.id);
-        this.collapsebutton.setAttribute('aria-expanded', 'true');
+
+        // Better would be: this.collapsebutton.innerHTML = `<img src="${...}" alt="${...}" />`
+        const collapseIcon = document.createElement('span');
+        collapseIcon.innerHTML = '&times;';
+        collapseIcon.setAttribute('role', 'img');
+        collapseIcon.setAttribute('aria-label', this.options.tooltopCollapseButton);
+        
+        this.collapsebutton.appendChild(collapseIcon);
+        
         container.appendChild(this.collapsebutton);
 
         this.collapsebutton.addEventListener('click', () => {
@@ -75,17 +81,11 @@ class MapLibreControlBasemapBar {
     expandBar() {
         if (this.isExpanded()) return;
         this._container.classList.remove('maplibre-control-basemapbar-collapsed');
-
-        this.expandbutton.setAttribute('aria-expanded', 'true');
-        this.collapsebutton.setAttribute('aria-expanded', 'true');
     }
 
     collapseBar() {
         if (! this.isExpanded()) return;
         this._container.classList.add('maplibre-control-basemapbar-collapsed');
-
-        this.expandbutton.setAttribute('aria-expanded', 'false');
-        this.collapsebutton.setAttribute('aria-expanded', 'false');
     }
 
     isExpanded() {
