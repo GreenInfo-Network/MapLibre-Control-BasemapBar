@@ -56,3 +56,9 @@
 .maplibre-control-basemapbar:not(.maplibre-control-basemapbar-collapsed) .maplibre-control-basemapbar-expandbutton {
     display: none;
 }
+
+.maplibre-control-basemapbar button:is(:focus, :focus-visible) {
+  outline: 2px solid black;
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
